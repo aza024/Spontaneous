@@ -117,34 +117,43 @@ function randomNum(min,max,interval)
     //List Meetups
     $("#list").append(
         `<li> 
-        <h2>Meetup 1 </h2> 
-        <h5>Name: </h5> ${meetupJSONResponse[num1].name}  <br>  
-        <h5>Link: </h5> ${meetupJSONResponse[num1].link} <br>  
-        <h5>Description: </h5> ${meetupJSONResponse[num1].description} <br>  
-        <button class = addBtn id=btn1 value=add>Add</button>  </li>`)
+            <h2>Meetup 1 </h2>
+                <h5>Name: </h5> 
+                ${meetupJSONResponse[num1].name}<br>
+                <h5>Link: </h5> 
+                ${meetupJSONResponse[num1].link} 
+                <h5>Description: </h5> 
+                ${meetupJSONResponse[num1].description} <br> 
+                <button class = addBtn id=btn1 value=add>Add</button>
+            </div> 
+        </li>`)
 
     $("#list").append(
         `<li> 
         <h2>Meetup 2</h2> 
-        <h5>Name: </h5>  ${meetupJSONResponse[num2].name} <br>  
-        <h5>Link: </h5> ${meetupJSONResponse[num2].link} <br>  
-        <h5>Description: </h5> ${meetupJSONResponse[num2].description} <br>
-        <button class = addBtn id=btn2 value=add>Add</button> </li>`)
- 
+            <h5>Name:</h5>
+            ${meetupJSONResponse[num2].name}<br> 
+            <h5>Link: </h5> ${meetupJSONResponse[num2].link}  
+            <h5>Description: </h5> ${meetupJSONResponse[num2].description} 
+            <button class = addBtn id=btn2 value=add>Add</button>
+            <br>
+        </li>`)
+
         $("#list").append(
-       `<h2>Meetup 3 </h2> 
-        <h5>Name: </h5>  ${meetupJSONResponse[num3].name}  <br>  
-        <h5>Link: </h5> ${meetupJSONResponse[num3].link} <br>  
-        <h5>Description: </h5> ${meetupJSONResponse[num3].description} <br> 
-        <button class = addBtn id=btn3 value=add>Add</button>  </li>`)    
+        `<h2>Meetup 3 </h2>
+            <h5>Name:</h5> 
+            ${meetupJSONResponse[num3].name}<br>      
+            <h5>Link:</h5> ${meetupJSONResponse[num3].link}
+            <h5>Description: </h5> ${meetupJSONResponse[num3].description} 
+            <button class = addBtn id=btn3 value=add>Add</button> 
+        </li>`)    
 
 function addMeetup(num){
-    $("#savedMeetup").append("<li class ="+num+"> "+ "Name: "+ JSON.stringify(meetupJSONResponse[num].name+
-    "</li>"+
-    "<li class ="+num+">" + "Link: "+meetupJSONResponse[num].link+"</li>"+
-    "<button class ="+num+" id=removeBtn value=delete>Remove</button>" +"<hr class="+num+">"))
+    $("#savedMeetup").append("<li class = " + num + ">" + "<h6>" + "Name: " + "</h6>" + JSON.stringify(meetupJSONResponse[num].name +
+    "</li>" +
+    "<li class = " + num + ">" + "<h6>" + "Link: " + "</h6>" + meetupJSONResponse[num].link + "</li>" +
+    "<button class = " + num + "id=removeBtn value=delete>Remove</button>" + "<hr class=" + num + ">"))
 }
-
 
 //Remove meetup from schema
 function removeMeetup(num){
@@ -216,30 +225,10 @@ function removeMeetup(num){
         $(this).hide()
     })
 
-    //COMMENTS
-    $('.addCommentBtn').on('click',function(e){
-        e.preventDefault;
-        console.log("commentClicked")
-    })
-    
-    $('#comments').on('submit',function(e){
-        e.preventDefault();
-        var data = $(this).serialize();
-        $.ajax({
-            method:'PUT',
-            url:'http://localhost:3000/profile/comment',
-            data:data,
-            success: commSucc,
-            error: function(response){console.log('Error:' + JSON.stringify(response))}
-        })
-        var date = new Date();
-        $("#date").append(date)  
-    })  
-
     // Select one of the three random meetups. 
     $('.decide').on('click',()=>{
         let randMtp =  Math.floor(Math.random() * (3)) + 1;
-        let text = `<h3>We picked Meetup ${randMtp}. Have Fun!</h3>`
+        let text = `<h3 class = "blue">We picked Meetup ${randMtp}. Have Fun!</h3>`
             $('.ourPick').append(text)
             $('.decide').hide() 
     })

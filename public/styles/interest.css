@@ -1,57 +1,81 @@
 *, label{
-    color: #333f4f;
     text-align: center;
 }
 
 .grid-container {
     display: grid;
-    grid-template-columns: auto auto;
-   
+    grid-template-columns: auto auto auto auto;
     padding: 5px;
-    margin: 10px;
-  }
-
-  input#submitBtn{
-      color:#333f4f;
-      background-color: lightgrey;
-      border-radius: 3px;
-      border: 2px solid white;
-  }
-#zipSubmit.btn{
-    color:white;
-    background-color: #333f4f;
+    margin-left: 5em;
 }
 
-body{
-    background:url('../images/mountains.jpg')no-repeat center center fixed;
-    background-size: cover; 
+.container{
+    width: 300px;
+    margin: 0; 
+    padding: 0;
+    margin-top: 10px;
 }
 
 #location.container{
-    border: 1px solid white ;
-    padding: .5em;
+    padding: 1em;
+}
+
+label{font-size: 2em;}
+
+h1{
+    color:#F64060;
+    padding-left: 1.5em;    
   
+}
+
+#zipSubmit, h1, #submitBtn{
+    font-family: 'Rock Salt', cursive;
+}
+
+
+#zipSubmit, #submitBtn{
+    padding: .5em;
+}
+input#submitBtn{
+    color:white;
+    background: #F64060;
+}
+
+.zipCont{
+    display: flex;
+    margin-bottom: 2em;
+}
+
+#zipSubmit{
+    background: #333333;
+    color:white;
+}
+
+body{
+    background:url('../images/interests.jpg')no-repeat center center fixed;
+    background-size: cover; 
 }
 
 h1, h2{
     text-align: center;
 }
 
-.medblue{
-    color: blue;
+h3{color:#F64060; 
+    margin: 1em;}
+
+.grid-item, .medium,  .light, .medtwo{
+    text-align: left;
 }
-.light{
-    color: lightgrey;
+
+.grid-item{font-size: 1.25em;}
+
+checkbox{
+    padding:2em;
+    color: white; 
+    border: 1px solid #F64060;
 }
+
 #zipSubmit.btn{
     text-align: center;
 }
 
-@media screen and (max-width: 385px) {
-    *{font-size: 1em}
-    .light {
-        color: #333f4f;
-    }
-    #cab{
-        color: lightgrey} 
-    }

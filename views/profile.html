@@ -9,46 +9,46 @@
     
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="styles/profile.css" />
+
+    <link href="https://fonts.googleapis.com/css?family=Rock+Salt" rel="stylesheet">
+    
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
     <script src="scripts/profile.js" defer></script> 
 
 </head>
-<header><h1>Be Spontaneous!</h1>
-    <h3>Try something new. Meet someone new.</h3></header>
-<body>
-    <ul id = "meetupList">
-        <div id = "list"> 
-             <div id = "meetupHdr"></div>
-            <div id = "meetupList"></div>
-            <div id = "meetupBtn"></div>
-        </div>
-    </ul>
+<header>
+    <h1 class = "spont">Spontaneous!</h1>
+    <h3>Try something new. Meet someone new.</h3>
+</header>
 
-    <div id = "savedMeetup">
-        <h1>Saved Meetups</h1>
-        <ul id ="savedMUList"></ul> 
-        <ul id = "savedMUList2"></ul>
-        <ul id = "savedMUList3"></ul>
-        
-    </div>
-        <h4>Still Can't Decide?</h4>
-        <p class="ourPick"></p>
-            <button class = "decide">Click here!</button>
-        
-    
-    <!-- <div class = "commentForm">
-        <div class="bg-img">
-        <h1>Comment</h1> 
-            <form id="comments">
-                <div id = "date"></div>
-                    <label for="name">Name</label>
-                    <input type="text" name="name" required id ="name">
-                    <label for="comment" name ="comment">Comment</label>
-                    <textarea type="text" rows ="9" columns ="10" name="comment" required id="comment"></textarea>
+<body>
+
+    <div class = "container">
+        <ul id = "meetupList">
+            <div id = "list"> 
+                <div id = "meetupBtn"></div>
+                <div id = "meetupHdr"></div>
+                <div id = "meetupList"></div>
                 
-                    <button id="comSubBtn" name="comSubmit" type="submit" class="btn" >Submit</button>
-            </form>
-    </div> -->
+            </div>
+        </ul>
+
+        <div id = "savedMeetup">
+            <h4>Still Can't Decide?</h4>
+            <p class="ourPick"></p>
+            <button class = "decide">Click here!</button>
+
+            <h3>Saved Meetups</h3>
+
+            <ul id ="savedMUList"></ul> 
+            <ul id = "savedMUList2"></ul>
+            <ul id = "savedMUList3"></ul>
+
+        </div>
+    </div>
+
+        
+
 </body>
 </html>

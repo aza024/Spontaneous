@@ -30,7 +30,7 @@ h3,
 #submitBtn{width: 10vw;}
 
 header{
-    color: #F64060;
+    background-color: #F64060;
     text-align: center;
     justify-content: space-between;
 }
@@ -49,15 +49,19 @@ header{
     font-family: 'Rock Salt', cursive;
     text-transform: uppercase;
     font-weight: bolder;
+    color:white;
+    background: #F64060;
 }
 
 .picture{
+    margin-top:1em;
     background-image: url("/images/main.jpg");
     height: 50vh;
     width: 100vw; 
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    border: 2px solid black;
 }
 
 .btn-default, .btn{
@@ -66,9 +70,12 @@ header{
     border: 2px solid white;
 }
 
+#loginForm{background: #F64060;}
+
 #email, #password{
     width: 10vw;
     margin-top: 2em;
+    border: 1px solid black;
 }
 
 p{
@@ -83,6 +90,18 @@ p{
     padding-bottom:1.2em;
 }
 
+#submitBtn{
+    background:white;
+    color: #F64060;
+    box-shadow: 1px 1px black;
+}
+
+#submitBtn:hover{
+    color: #F64060;
+    background: white ;
+    border: 2px solid white;
+}
+
 #signInBtn.btn{
     width: 50px;
     height: 50px;
@@ -95,3 +114,22 @@ p{
     border: 3px solid #F64060;
 }
 
+@media only screen and (max-width: 768px){
+    .capBold{font-size: 1.25em; 
+        margin-top: 2em;}
+    #submitBtn{font-size: .65em;}
+    #email,#password{width: 20vw;}
+}
+
+@media only screen and (max-width: 586px){
+  
+    
+    header, 
+    .new{flex-direction: column;}
+    #formabout{ justify-content: center;}
+    .new{align-content: center;}
+    p{
+        width:80vw;
+        margin:0;
+    }
+}

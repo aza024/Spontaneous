@@ -1,31 +1,72 @@
 .materialize-textarea, #input_text, input{
     border: 1px solid black;
 }
+*{
+    text-align: center;
+}
 
 h1,h3,{
     text-align: center;
 }
-*{
-    max-width: 95vw;
+
+h5{
+    text-transform: uppercase;
+    color: #36454F;
+    font-weight: bold;
+    font-size: 1.35em;
 }
 
+#list{width: 70vw;}
+
+.container{display:flex;}
+
+.spont{font-family: 'Rock Salt', cursive;}
+
+li{list-style-type: none}
+
+body{background: #FFFFFF}
+
 header{
+    width: 100vw;
+    padding: 1em;
+}
+
+.decide, header{
     color:white;
     background-color: #f64060;
-    width: 100vw;
 }
+#removeBtn{
+    margin-top: 1em;
+}
+#savedMeetup{
+    margin-left: 1em;
+    background: white;
+    border: 2px solid #00A2C7;
+    padding: 1em;
+    margin-top: 1.25em;
+}
+
+.blue{color: #00A2C7;}
+
+#meetupList{padding:0;}
 h2{
     background-color: black;
     color:white;
+    padding: .25em;
 }
-.addBtn, #removeBtn, .decide{
-    background-color: #f64060;
+.addBtn, #removeBtn{
+    background-color: #00A2C7;
     color: white;
     border: none;
     border-radius: 3px;
     text-align: center;
 }
 
-#removeBtn{
-    margin-left: 3em;
+.addBtn{
+    margin: 1em;
+    /* font-size: 1.5em; */
+  
 }
+
+
+
