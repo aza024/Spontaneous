@@ -1,15 +1,14 @@
 <h1> Spontaneous </h1>
-   Spontaneous is a responsive full-stack application that allows users to sign up for an account and generates 
-   three random Meetups from a profile completed at account creation. 
+   Spontaneous is a responsive full-stack application that allows users to sign up for an account that generates 
+   three random Meetups from a list of interest they selected in profile creation. 
 
 <h2> Existing Features </h2>
   <ul>
-    <li> Account creation - comprised of a name, e-mail, and password that is validated for accuracy and completion </li>
-    <li> Parameter selection -users can enter their zip code and search for Meetups in a specific location </li>
+    <li> Account creation comprised of a name, e-mail, and password that are validated for accuracy and completion and       hashed using BCrypt</li>
+    <li> Users can enter their zip code and search for Meetups in a specific location </li>
     <li> Generate and display three random meetups to users based on individually customized profile </li>
-    <li> Add a meetup to "Saved" meetup section </li>
-    <li> Remove a meetup from "Saved" meetup section </li>
-    <li> Allow random selection of existing meetups </li>
+    <li> Save and remove Meetups to customized list </li>
+    <li> "Decide For Me" option that selects from list of random Meetup list </li>
   </ul>
 
 <h2> Technologies Used </h2>
@@ -34,7 +33,7 @@
 
 <h2> User Story </h2>
 
-<p> Upon visiting Spontaneous, a user will have the option to "Log In" to their account or "Sign Up" to a new account.</p>
+<p> Upon visiting Spontaneous, a user will have the option to "Log In" to their account or "Sign Up" to a new account. </p>
 
 <img width="1419" alt="Spontaneous Home" src="https://user-images.githubusercontent.com/38674075/48965620-a861e480-ef75-11e8-8982-4ed6b9aa6f90.png">
 
