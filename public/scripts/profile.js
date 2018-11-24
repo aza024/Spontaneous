@@ -39,14 +39,17 @@ $(document).ready(() => {
                 randomIntr = parsedIntrs[random]
                 return randomIntr
             }
+
             //Select a random user interest 
             //Param: user interest from ./interest page
             randomInterest = (userIntr) => {
                 for(let i = 0; i < parseInterests.length; i++){
                     let intID = parseInterests[i] 
                 } 
+
                 const maxNumIntr = parseInterests.length;
                 const minNumIntr = 0;
+
                 randomIntrNum(maxNumIntr, minNumIntr)
             }   
             randomInterest(userInterests)
@@ -84,30 +87,22 @@ randomNum = (min, max, interval) => {
     let random = Math.floor(Math.random()*(max-0+interval)/interval);
     return random * interval + min;
 }
-    let num1 = randomNum(0,maxLen); 
-    let num2 = randomNum(0,maxLen); 
-    let num3 = randomNum(0,maxLen);  
+    let num1 = randomNum(0, maxLen); 
+    let num2 = randomNum(0, maxLen); 
+    let num3 = randomNum(0, maxLen);  
 
 //make sure duplicate meetups don't appear
-    if(num1 === num2 || num1 === num3 && num1 != maxLen){
-        num1++
-    }
-    else if(num2 === num3 && num2 != maxLen){
-        num2++ 
-    }
-    else if(num1 === num2 || num1 === num3 && num1=== maxLen){
-        num1--
-    }
-    else if(num2 === num3 && num2 === maxLen){
-        num2--
-    }
+    if(num1 === num2 || num1 === num3 && num1 != maxLen){ num1++ }
+    else if(num2 === num3 && num2 != maxLen){ num2++ }
+    else if(num1 === num2 || num1 === num3 && num1=== maxLen){ num1-- }
+    else if(num2 === num3 && num2 === maxLen){ num2-- }
 
     //List Meetups
     $("#list").append(
         `<li> 
             <h2>Meetup 1 </h2>
                 <h5>Name: </h5> 
-                ${meetupJSONResponse[num1].name}<br>
+                ${meetupJSONResponse[num1].name} <br>
                 <h5>Link: </h5> 
                 ${meetupJSONResponse[num1].link} 
                 <h5>Description: </h5> 
@@ -118,45 +113,44 @@ randomNum = (min, max, interval) => {
 
     $("#list").append(
         `<li> 
-        <h2>Meetup 2</h2> 
-            <h5>Name:</h5>
+            <h2> Meetup 2 </h2> 
+            <h5> Name: </h5>
             ${meetupJSONResponse[num2].name}<br> 
-            <h5>Link: </h5> ${meetupJSONResponse[num2].link}  
-            <h5>Description: </h5> ${meetupJSONResponse[num2].description} 
-            <button class = addBtn id=btn2 value=add>Add</button>
+            <h5> Link: </h5> ${meetupJSONResponse[num2].link}  
+            <h5> Description: </h5> ${meetupJSONResponse[num2].description} 
+            <button class = addBtn id=btn2 value=add> Add </button>
             <br>
         </li>`)
 
         $("#list").append(
         `<h2>Meetup 3 </h2>
-            <h5>Name:</h5> 
-            ${meetupJSONResponse[num3].name}<br>      
-            <h5>Link:</h5> ${meetupJSONResponse[num3].link}
-            <h5>Description: </h5> ${meetupJSONResponse[num3].description} 
-            <button class = addBtn id=btn3 value=add>Add</button> 
+        <h5>Name:</h5> 
+        ${meetupJSONResponse[num3].name}<br>      
+        <h5>Link:</h5> ${meetupJSONResponse[num3].link}
+        <h5>Description: </h5> ${meetupJSONResponse[num3].description} 
+        <button class = addBtn id=btn3 value=add> Add </button> 
         </li>`)    
 
 addMeetup = (num) => {
     $("#savedMeetup").append("<li class = " + num + ">" + "<h6>" + "Name: " + "</h6>" + JSON.stringify(meetupJSONResponse[num].name +
     "</li>" +
     "<li class = " + num + ">" + "<h6>" + "Link: " + "</h6>" + meetupJSONResponse[num].link + "</li>" +
-    "<button class = " + num + "id=removeBtn value=delete>Remove</button>" + "<hr class=" + num + ">"))
+    "<button class = " + num + "id=removeBtn value=delete> Remove </button>" + "<hr class=" + num + ">"))
 }
 
 //Remove meetup from schema
 removeMeetup = (num) => {
     $('#removeBtn').on('click',function(){
-        var username = Cookies.get("username")
-        console.log("username for meetupID remove: ", username)
-        var meetupId = meetupJSONResponse[num].id
+        let username = Cookies.get("username")
+        let meetupId = meetupJSONResponse[num].id
         $("."+num).hide()
     })
 }
 
 //Add button  - save meetup ID to profile
     $("#btn1").on('click',function(e){
-        var username = Cookies.get("username")
-        var meetupId = meetupJSONResponse[num1].id
+        let username = Cookies.get("username")
+        let meetupId = meetupJSONResponse[num1].id
         e.preventDefault()
         $.ajax({
             method: "put",
