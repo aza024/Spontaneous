@@ -1,58 +1,49 @@
-//global variables
-let randomIntr;
+//GLOBAL VARIABLES
+let randomIntr = 0;
 const apiKey = "3b72576a30795b1d47673a2f3f2837"
-var zipCode = Cookies.get("zipCode")
-    console.log(zipCode)
 
-//global functions
-function createSucc(user){    
-    console.log(user.user._id)
+let zipCode = Cookies.get("zipCode")
+
+//GLOBAL FUNCTIONS
+createSucc = (user) => {    
     window.location.reload()
 }
-function commSucc(json){
-    console.log("ANDREA")
-    allComments = json
+
+commSucc = (json) => {
+    let allComments = json
     $("#comDisp").append(data)
-    console.log(data)
 }
 
-
-$(document).ready(function(){
-    //retrive cookies holding geoCoding data
-    var username = Cookies.get("username")
-    console.log("username"+ username)
-    var lng = parseFloat(Cookies.get("lng"));
-    var lat = parseFloat(Cookies.get("lat"));
-    console.log("long,lat",lng,lat)
+$(document).ready(() => {
+    //Retrive cookies holding GeoCoding data
+    let username = Cookies.get("username")
+    let lng = parseFloat(Cookies.get("lng"));
+    let lat = parseFloat(Cookies.get("lat"));
 
     $.ajax({
         dataType: 'json',
         method:'GET',
         data: {username: username},
         url: "http://localhost:3000/userInterests",
-        success:function(response){
-            console.log("User Interests Retrieved")
-            console.log("response",response)
-            var userInterests = JSON.stringify(response.interests)
-                console.log(userInterests)
-            var parseInterests = JSON.parse(userInterests)
+        success: (response) => {
+            console.log("INFO: User Interests Retrieved")
+            let userInterests = JSON.stringify(response.interests)
+            let parseInterests = JSON.parse(userInterests)
 
             //generate a random integer to display data to user.
             //Params: min - 0, max - max number returned from Meetup API containing interests from user with zip code. 
             
-            function randomIntrNum(min,max)
-            {
-                var random = 
-                Math.floor(Math.random() * (max - min)) + min;
-                var parsedIntrs = JSON.parse(userInterests)
+            randomIntrNum = (min,max) =>{
+                let random = Math.floor(Math.random() * (max - min)) + min;
+                let parsedIntrs = JSON.parse(userInterests)
                 randomIntr = parsedIntrs[random]
                 return randomIntr
             }
             //Select a random user interest 
             //Param: user interest from ./interest page
-            function randomInterest(userIntr){
+            randomInterest = (userIntr) => {
                 for(let i = 0; i < parseInterests.length; i++){
-                    var intID = parseInterests[i] 
+                    let intID = parseInterests[i] 
                 } 
                 const maxNumIntr = parseInterests.length;
                 const minNumIntr = 0;
@@ -69,51 +60,48 @@ $(document).ready(function(){
                 method: 'GET',
                 url: meetupEndpoint,
                 success: onSuccess,
-                error: function(response){
-                    console.log('Error:' + JSON.stringify(response))
+                error: (response) => {
+                    console.log('ERROR:' + JSON.stringify(response))
                 }
             })
         },
-        error: function(response){
-            console.log('Error:' + JSON.stringify(response))   
+        error: (response) => {
+            console.log('ERROR:' + JSON.stringify(response))   
         }
     })  
-    
 })//end doc.ready
 
 //When the .AJAX call is successful, get data and length for random functions
-function onSuccess(response){
-    
-    var meetupJSONResponse = response.data;
+onSuccess = (response) => {
+    let meetupJSONResponse = response.data;
     let maxLen = meetupJSONResponse.length;
 
     console.log(response)
 
 //calculate random number
-function randomNum(min,max,interval)
-{
-    interval = 1;
+randomNum = (min, max, interval) => {
+    const interval = 1;
     let random = Math.floor(Math.random()*(max-0+interval)/interval);
-    return random*interval+min;
+    return random * interval + min;
 }
-    var num1 = randomNum(0,maxLen); 
-    var num2 = randomNum(0,maxLen); 
-    var num3 = randomNum(0,maxLen);  
+    let num1 = randomNum(0,maxLen); 
+    let num2 = randomNum(0,maxLen); 
+    let num3 = randomNum(0,maxLen);  
 
-     //make sure duplicate meetups don't appear
+//make sure duplicate meetups don't appear
     if(num1 === num2 || num1 === num3 && num1 != maxLen){
         num1++
     }
-        else if(num2 === num3 && num2 != maxLen){
-            num2++ 
-        }
-        else if(num1 === num2 || num1 === num3 && num1=== maxLen){
-            num1--
-        }
-        else if(num2 === num3 && num2 === maxLen){
-            num2--
-        }
-//generate HTML
+    else if(num2 === num3 && num2 != maxLen){
+        num2++ 
+    }
+    else if(num1 === num2 || num1 === num3 && num1=== maxLen){
+        num1--
+    }
+    else if(num2 === num3 && num2 === maxLen){
+        num2--
+    }
+
     //List Meetups
     $("#list").append(
         `<li> 
@@ -148,7 +136,7 @@ function randomNum(min,max,interval)
             <button class = addBtn id=btn3 value=add>Add</button> 
         </li>`)    
 
-function addMeetup(num){
+addMeetup = (num) => {
     $("#savedMeetup").append("<li class = " + num + ">" + "<h6>" + "Name: " + "</h6>" + JSON.stringify(meetupJSONResponse[num].name +
     "</li>" +
     "<li class = " + num + ">" + "<h6>" + "Link: " + "</h6>" + meetupJSONResponse[num].link + "</li>" +
@@ -156,7 +144,7 @@ function addMeetup(num){
 }
 
 //Remove meetup from schema
-function removeMeetup(num){
+removeMeetup = (num) => {
     $('#removeBtn').on('click',function(){
         var username = Cookies.get("username")
         console.log("username for meetupID remove: ", username)
@@ -165,9 +153,7 @@ function removeMeetup(num){
     })
 }
 
-  
-    
-    //add button  - save meetup ID to profile
+//Add button  - save meetup ID to profile
     $("#btn1").on('click',function(e){
         var username = Cookies.get("username")
         var meetupId = meetupJSONResponse[num1].id
@@ -179,8 +165,10 @@ function removeMeetup(num){
                 username: username, 
                 meetupId: meetupId 
             },
-            success:console.log("Success:"+username+meetupId),
-            error: (response)=>{console.log('Error:' + JSON.stringify(response))}
+            success:console.log("Success:" + username + meetupId),
+            error: (response) => {
+                console.log('Error:' + JSON.stringify(response))
+            }
         })     
         addMeetup(num1)
         removeMeetup(num1)
@@ -188,8 +176,8 @@ function removeMeetup(num){
     })
 
     $("#btn2").on('click',function(e){
-        var username = Cookies.get("username")
-        var meetupId = meetupJSONResponse[num1].id
+        let username = Cookies.get("username")
+        let meetupId = meetupJSONResponse[num1].id
         e.preventDefault();
         $.ajax({
             method: "put",
@@ -198,8 +186,10 @@ function removeMeetup(num){
                 username: username, 
                 meetupId: meetupId 
             },
-            success:console.log("Success:"+username+meetupId),
-            error: (response)=>{console.log('Error:' + JSON.stringify(response))}
+            success: console.log("Success:" + username + meetupId),
+            error: (response) => {
+                console.log('Error:' + JSON.stringify(response))
+            }
         })     
         addMeetup(num2)
         removeMeetup(num2)
@@ -207,8 +197,8 @@ function removeMeetup(num){
     })
 
     $("#btn3").on('click',function(e){
-        var username = Cookies.get("username")
-        var meetupId = meetupJSONResponse[num1].id
+        let username = Cookies.get("username")
+        let meetupId = meetupJSONResponse[num1].id
         e.preventDefault();
         $.ajax({
             method: "put",
@@ -217,8 +207,10 @@ function removeMeetup(num){
                 username: username, 
                 meetupId: meetupId 
             },
-            success:console.log("Success:"+username+meetupId),
-            error: (response)=>{console.log('Error:' + JSON.stringify(response))}
+            success:console.log("Success:" + username + meetupId),
+            error: (response) => {
+                console.log('Error:' + JSON.stringify(response))
+            }
         })     
         addMeetup(num3)
         removeMeetup(num3)
@@ -226,9 +218,12 @@ function removeMeetup(num){
     })
 
     // Select one of the three random meetups. 
-    $('.decide').on('click',()=>{
+    $('.decide').on('click', () => {
         let randMtp =  Math.floor(Math.random() * (3)) + 1;
-        let text = `<h3 class = "blue">We picked Meetup ${randMtp}. Have Fun!</h3>`
+        let text = `
+            <h3 class = "blue"> 
+                We picked Meetup ${randMtp}. Have Fun!
+            </h3>`
             $('.ourPick').append(text)
             $('.decide').hide() 
     })

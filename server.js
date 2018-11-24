@@ -1,69 +1,66 @@
 const express = require('express');
 const app = express();
-const fetchJson = require('node-fetch-json');
 
 //parse incoming urlencoded data and populate req.body object
 const bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
+
 //password encryption extension
-const bcrypt = require('bcrypt');  
+const bcrypt = require('bcrypt'); 
+
 //initialize database
 const db = require('./models');
 const jwt = require('jsonwebtoken')
 
 //APP.USE 
 app.use(express.static('public'));
-
-// Allow Cross Origin Requests(CORS)
-app.use(function(req, res, next) {
-    res.header ("set Access-Control-Allow-Origin "*"");
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
   });
-
 
 //APP.GET
 app.get('/', (req, res) => {res.sendFile(__dirname + '/views/index.html');});
 app.get('/', (req, res) => {res.sendFile(__dirname + '/views/profile.html');});
 
 //Geocoding
-app.get('/interests/location',function getLongLat(req,res){
+app.get('/interests/location', getLongLat = (req,res) => {
   if(err){
-    console.log("error"+err)
+    console.log("ERROR: " + err)
     res.sendStatus(400)
   }
-  else console.log('location' + res)
 })
 
 //Get user interests from cached value from selected checkboxes in interests.html
-app.get('/userInterests', function getInterests(req,res){
-  var username = req.query.username
-  db.User.findOne({username:username},(err,user)=>{
+app.get('/userInterests', getInterests = (req,res) => {
+  let username = req.query.username
+  db.User.findOne({username:username}, (err,user) => {
     if(err){
-      console.log("error "+ err )
+      console.log("ERROR: " + err )
       res.sendStatus(400)
     } else {
-      console.log('user ' + user)
       res.json(user)
     }
   })
 })
 
-app.get('/interests', (req, res) => {res.sendFile(__dirname + '/views/interests.html');});
+app.get('/interests', (req, res) => {
+  res.sendFile(__dirname + '/views/interests.html');
+});
 
-app.get('/profile', (req, res) => {res.sendFile(__dirname + '/views/profile.html');});
+app.get('/profile', (req, res) => {
+  res.sendFile(__dirname + '/views/profile.html');
+});
 
 //APP.POST
 app.post('/verify', verifyToken, (req, res) => {
     let verified= jwt.verify(req.token, 'kombucha')
-    console.log("verified: ", verified)
     res.json(verified)
 })
 
 app.post('/protectedPage', verifyToken, (req, res) => {
-    console.log(req.token)
     jwt.verify(req.token, 'kombucha', (err, authData) => {
       if(err) {
         res.sendStatus(403);
@@ -86,7 +83,6 @@ app.post('/signup', (req, res) => {
         })
       } else {
         bcrypt.hash(req.body.password, 10, (err, hash) => {
-          console.log(hash);
           if(err){ 
             res.status(500).json({error: err})
           } else {
@@ -100,9 +96,10 @@ app.post('/signup', (req, res) => {
             user
               .save()
               .then( result =>
-                res.json({message: 'User created',
-                          user: result
-                        })
+                res.json({
+                  message: 'User created',
+                  user: result
+                })
               )
               .catch( err => {
                 console.log(err);
@@ -124,7 +121,6 @@ app.post('/login', (req, res) => {
           })
         }
         bcrypt.compare(req.body.password, users[0].password, (err, match) => {
-          console.log(match)
           if(err){return res.status(500).json({err})}
           if(match){
             const token = jwt.sign({
@@ -164,7 +160,6 @@ app.put('/profile/remove',(req,res)=>{
 })
 
 app.put('/interests', (req, res) => {
-  console.log("request", req.body.interests);
 //DB CALLS
   db.User.findOneAndUpdate({username: req.body.username},{interests: req.body.interests})
 
@@ -172,42 +167,20 @@ app.put('/interests', (req, res) => {
     {interests: req.body.interests})
   .exec()
   .then( user => {
-    console.log("user " + user);
+    console.log("INFO: User: " + user);
   })
   res.status(200).json({
     message: "Sent OK"
   })
 });
 
-app.put('/profile/comment', function (req, res) {
-  {
-    let newComment = req.body.comments;
-    let name = req.body.name;
-    db.User.findOneAndUpdate({username:name}, newComment, (err, updatedComment)=>{
-      if (err){
-        return console.log(err)
-      }
-      else{
-        respond.JSON(updatedComment)
-      }
-    }) 
-    db.User.create(newComment, function(err,comment){
-      if (err){
-        console.log("index error:"+ err);
-        res.sendStatus(400)
-      }
-      res.json({comment})
-    })
-  }
-})
-
 //FUNCTIONS
-function verifyToken(req, res, next) {
+verifyToken = (req, res, next) => {
     const bearerHeader = req.headers['authorization'];
-    console.log(bearerHeader)
-    if(typeof bearerHeader !== 'undefined'){
+    if(typeof bearerHeader !== 'undefined') {
       const bearer = bearerHeader.split(' ');
       const bearerToken = bearer[1];
+      
       req.token = bearerToken;
       next();
     } else {
