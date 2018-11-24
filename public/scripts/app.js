@@ -1,4 +1,4 @@
-$('#signUpBtn').on('click',function(){ 
+$('#signUpBtn').on('click', () => { 
     let data = {
         username: $('#subName').val(),
         email: $('#subEmail').val(),
@@ -7,17 +7,16 @@ $('#signUpBtn').on('click',function(){
     }
     
     Cookies.set("username", $('#subName').val());
-    console.log("cookie", Cookies.get('username')); // => 'value') 
 
     $.ajax({
         method: "POST",
         url: "/signup",
         data: data,
-        success: function(response){
-            console.log(JSON.stringify(response))
+        success: (response) => {
+            console.log('INFO: ' + JSON.stringify(response))
         },
-        error: function(response){
-            console.log("error", JSON.stringify(response))
+        error: (response) => {
+            console.log("ERROR: ", JSON.stringify(response))
         },
     })
     window.location.replace('/interests');
